@@ -4,14 +4,22 @@ pipeline {
     stages {
         stage('préparation') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/byassine/simplephp']])
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/byassine/simplephp.git'
+            }
+        }
+        stage('Sonar Analyse') {
+            steps {
+               sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://10.97.232.219:9000/ -Dsonar.login=squ_0278d1d8df8d13961bc889101cf395a24adf140f -Dsonar.projectName=test \
+                -Dsonar.java.binaries=. \
+                -Dsonar.projectKey=test '''
+                
             }
         }
         stage('build image'){
             steps{
                 script{
                     sh 'docker pull docker.io/library/php:7.0-apache'
-                    sh 'docker build -t yassinebd/testphp:v1.0.2 .'
+                    sh 'docker build -t yassinebd/testphp:v1.0.3 .'
                 }
             }
         }
@@ -20,7 +28,7 @@ pipeline {
             steps{
                 script{
                     withDockerRegistry([ credentialsId: "newdockerhub-pwd", url: "https://index.docker.io/v1/" ]) {
-                        sh "docker push yassinebd/testphp:v1.0.2"
+                        sh "docker push yassinebd/testphp:v1.0.3"
                         }
                         
                 }
