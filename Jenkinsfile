@@ -23,7 +23,7 @@ pipeline {
             steps{
                 script{
                     sh 'docker pull docker.io/library/php:7.0-apache'
-                    sh 'docker build -t yassinebd/testphp:v1.0.3 .'
+                    sh 'docker build -t yassinebd/testphp:v1.0.4 .'
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
             steps{
                 script{
                     withDockerRegistry([ credentialsId: "newdockerhub-pwd", url: "https://index.docker.io/v1/" ]) {
-                        sh "docker push yassinebd/testphp:v1.0.3"
+                        sh "docker push yassinebd/testphp:v1.0.4"
                         }
                         
                 }
