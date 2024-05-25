@@ -13,7 +13,7 @@ spec:
         run: my-app
     spec:
       containers:
-      - name: my-app
+      - name: nv-application
         image: yassinebd/testphp:v1.0.1
         ports:
         - containerPort: 8080
@@ -23,7 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app
+  name: nv-app-svc
   labels:
     run: my-app
 spec:
