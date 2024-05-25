@@ -1,6 +1,10 @@
 pipeline {
      agent any
 
+     environment{
+        SCANNER_HOME=tool 'sonar-scanner'
+    }
+
     stages {
         stage('préparation') {
             steps {
