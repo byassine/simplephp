@@ -16,7 +16,7 @@ spec:
       - name: my-app
         image: yassinebd/testphp:v1.0.1
         ports:
-        - containerPort: 80
+        - containerPort: 8080
 
 ---
 
@@ -29,7 +29,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 80
+  - port: 8080
     protocol: TCP
   selector:
     run: my-app
