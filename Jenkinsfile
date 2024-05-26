@@ -42,7 +42,6 @@ pipeline {
             steps {
                  script{
                         sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
-                        sh "sed -i 's/v1.0.4/v1.0.5/g' Jenkinsfile"
                         sh "git config user.email bouderaa.yassine@gmail.com"
                         sh "git config user.name byassine"
                         sh "git checkout main"
