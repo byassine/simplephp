@@ -42,6 +42,7 @@ pipeline {
      stage('comit change manifest') {
             steps {
                  script{
+                        sh "git remote set-url origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/simplephp.git"
                         sh "sed -i 's/v1.0.4/v1.0.6/g' deployementtest.yaml"
                         sh "git config --global user.email bouderaa.yassine@gmail.com"
                         sh "git config --global user.name byassine"
@@ -49,7 +50,7 @@ pipeline {
                         sh "git config --global https.proxy http://10.97.243.181:808"
                         sh "git add deployementtest.yaml"
                         sh "git commit -m 'update'"
-                        sh "git push -f --set-upstream origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/simplephp.git"
+                        sh "git push -f --set-upstream origin main"
                       
                         sh "git remote rm origin"
                         sh "git remote add origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/manifesttest.git"
