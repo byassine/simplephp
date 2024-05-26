@@ -23,7 +23,7 @@ pipeline {
             steps{
                 script{
                     sh 'docker pull docker.io/library/php:7.0-apache'
-                    sh 'docker build -t yassinebd/testphp:v1.0.4 .'
+                    sh 'docker build -t yassinebd/testphp:v1.0.5 .'
                 }
             }
         }
@@ -32,12 +32,21 @@ pipeline {
             steps{
                 script{
                     withDockerRegistry([ credentialsId: "newdockerhub-pwd", url: "https://index.docker.io/v1/" ]) {
-                        sh "docker push yassinebd/testphp:v1.0.4"
-                        sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
-                        sh "sed -i 's/v1.0.4/v1.0.5/g' Jenkinsfile"
+                        sh "docker push yassinebd/testphp:v1.0.5"
                         }
                         
                 }
+            }
+        }
+     stage('préparation') {
+            steps {
+                 script{
+                        sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
+                        sh "sed -i 's/v1.0.4/v1.0.5/g' Jenkinsfile"
+                 }
+                git checkout main
+                git commit -am "Updated version number"  
+                git push
             }
         }
         stage('deploy to k8s')
