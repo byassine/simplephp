@@ -24,7 +24,7 @@ pipeline {
             steps{
                 script{
                     sh 'docker pull docker.io/library/php:7.0-apache'
-                    sh 'docker build -t yassinebd/testphp:v1.0.6 .'
+                    sh 'docker build -t yassinebd/testphp:v1.0.7 .'
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
             steps{
                 script{
                     withDockerRegistry([ credentialsId: "newdockerhub-pwd", url: "https://index.docker.io/v1/" ]) {
-                        sh "docker push yassinebd/testphp:v1.0.6"
+                        sh "docker push yassinebd/testphp:v1.0.7"
                         }
                         
                 }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                  script{
                         sh "git remote set-url origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/simplephp.git"
-                        sh "sed -i 's/v1.0.4/v1.0.6/g' deployementtest.yaml"
+                        sh "sed -i 's/v1.0.6/v1.0.7/g' deployementtest.yaml"
                         sh "git config --global user.email bouderaa.yassine@gmail.com"
                         sh "git config --global user.name byassine"
                         sh "git config --global http.proxy http://10.97.243.181:808" 
@@ -59,18 +59,6 @@ pipeline {
                         sh "git push -f --set-upstream origin main"  
 
                  }
-            }
-        }
-        stage('deploy to k8s')
-        {
-            steps{
-                script{
-                    kubeconfig(credentialsId: 'k8sjenkins', serverUrl: 'https://10.97.232.226:6443') {
-                            sh 'kubectl get pods'
-                            sh 'kubectl apply -f manifest/deployementtest.yaml'
-                        }
-                                                
-                }
             }
         }
     }
