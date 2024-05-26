@@ -42,7 +42,7 @@ pipeline {
      stage('comit change manifest') {
             steps {
                  script{
-                        sh "sed -i 's/v1.0.5/v1.0.6/g' deployementtest.yaml"
+                        sh "sed -i 's/v1.0.4/v1.0.6/g' deployementtest.yaml"
                         sh "git config --global user.email bouderaa.yassine@gmail.com"
                         sh "git config --global user.name byassine"
                         sh "git config --global http.proxy http://10.97.243.181:808" 
