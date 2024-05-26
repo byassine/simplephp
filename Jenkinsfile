@@ -24,7 +24,7 @@ pipeline {
             steps{
                 script{
                     sh 'docker pull docker.io/library/php:7.0-apache'
-                    sh 'docker build -t yassinebd/testphp:v1.0.7 .'
+                    sh 'docker build -t yassinebd/testphp:v1.0.8 .'
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
             steps{
                 script{
                     withDockerRegistry([ credentialsId: "newdockerhub-pwd", url: "https://index.docker.io/v1/" ]) {
-                        sh "docker push yassinebd/testphp:v1.0.7"
+                        sh "docker push yassinebd/testphp:v1.0.8"
                         }
                         
                 }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                  script{
                         sh "git remote set-url origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/simplephp.git"
-                        sh "sed -i 's/v1.0.6/v1.0.7/g' deployementtest.yaml"
+                        sh "sed -i 's/v1.0.7/v1.0.8/g' deployementtest.yaml"
                         sh "git config --global user.email bouderaa.yassine@gmail.com"
                         sh "git config --global user.name byassine"
                         sh "git config --global http.proxy http://10.97.243.181:808" 
