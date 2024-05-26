@@ -17,12 +17,12 @@ pipeline {
                         sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
                         sh "git config user.email bouderaa.yassine@gmail.com"
                         sh "git config user.name byassine"
-                        sh "git checkout main"
+                        sh "git remote add https://github.com/byassine/simplephp"
+                        sh "git branch -M main"
+                        sh "git status"
                         sh "git add deployementtest.yaml"
-                        sh "git commit -am 'Updated version number'"
-                        sh "git branch second"
-                        sh "git remote set-url origin2 https://github.com/byassine/simplephp"
-                        sh "git push -u origin2 second"
+                        sh "git commit -m 'Updated version number'"
+                        sh "git push -u origin main"
                  }
             }
         }
