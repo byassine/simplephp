@@ -15,6 +15,7 @@ pipeline {
             steps {
                  script{
                         sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
+                        withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: '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', usernameVariable: 'byassine')]) {
                         sh "git config user.email bouderaa.yassine@gmail.com"
                         sh "git config user.name byassine"
                         sh "git branch -M main"
@@ -22,8 +23,10 @@ pipeline {
                         sh "git add deployementtest.yaml"
                         sh "git commit -m 'Updated version number'"
                         sh "git remote -v"
-                        sh "git remote set-url origin https://github.com/byassine/manifesttest.git"
-                        sh "git push -u origin main"
+                        sh "git remote add origin https://github.com/byassine/manifesttest.git"
+                        sh "git push -f --set-upstream origin main"
+                         }
+
                  }
             }
         }
