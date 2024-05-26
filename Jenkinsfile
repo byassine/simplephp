@@ -21,7 +21,7 @@ pipeline {
                         sh "git config --global http.proxy http://10.97.243.181:808" 
                         sh "git config --global https.proxy http://10.97.243.181:808"
                          sh "git remote rm origin"
-                         sh "git remote add origin https://byassine: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@github.com/byassine/manifesttest.git"
+                         sh "git remote add origin https://byassine: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@github.com/byassine/manifesttest.git"
                         sh "git branch -M main"
                         sh "git status"
                         sh "git add deployementtest.yaml"
