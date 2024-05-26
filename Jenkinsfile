@@ -47,7 +47,7 @@ pipeline {
                         sh "git config user.name byassine"
                         sh "git checkout main"
                         sh "git commit -am 'Updated version number'"
-                        sh "git push"
+                        sh "git push --set-upstream origin main"
                  }
             }
         }
