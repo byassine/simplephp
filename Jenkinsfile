@@ -16,8 +16,8 @@ pipeline {
                  script{
                         sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
                         withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: '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', usernameVariable: 'byassine')]) {
-                        sh "git config user.email bouderaa.yassine@gmail.com"
-                        sh "git config user.name byassine"
+                        sh "git config --global user.email bouderaa.yassine@gmail.com"
+                        sh "git config --global user.name byassine"
                         sh "git config --global http.proxy http://10.97.243.181:808" 
                         sh "git config --global https.proxy http://10.97.243.181:808" 
                         sh "git branch -M main"
