@@ -3,6 +3,7 @@ pipeline {
 
      environment{
         SCANNER_HOME=tool 'sonar-scanner'
+        GITHUB_CRED = credentials('secgit')
     }
 
     stages {
@@ -15,20 +16,16 @@ pipeline {
             steps {
                  script{
                         sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
-                        withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: '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', usernameVariable: 'byassine')]) {
                         sh "git config --global user.email bouderaa.yassine@gmail.com"
                         sh "git config --global user.name byassine"
                         sh "git config --global http.proxy http://10.97.243.181:808" 
                         sh "git config --global https.proxy http://10.97.243.181:808"
-                         sh "git remote rm origin"
-                         sh "git remote add origin https://byassine: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@github.com/byassine/manifesttest.git"
-                        sh "git branch -M main"
-                        sh "git status"
+                        sh "git remote rm origin"
+                        sh "git remote add origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/manifesttest.git"
                         sh "git add deployementtest.yaml"
-                        sh "git commit -m 'Updated version number'"
-                        sh "git remote -v"
-                        sh "git push -f --set-upstream origin main"
-                         }
+                        sh "git mv -f deployementtest.yaml manifest/deployementtest.yaml"
+                        sh "git commit -m 'update'"
+                        sh "git push -f --set-upstream origin main"  
 
                  }
             }
@@ -39,7 +36,7 @@ pipeline {
                 script{
                     kubeconfig(credentialsId: 'k8sjenkins', serverUrl: 'https://10.97.232.226:6443') {
                             sh 'kubectl get pods'
-                            sh 'kubectl apply -f deployementtest.yaml'
+                            sh 'kubectl apply -f manifest/deployementtest.yaml'
                         }
                                                 
                 }
