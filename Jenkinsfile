@@ -20,8 +20,9 @@ pipeline {
                         sh "git checkout main"
                         sh "git add deployementtest.yaml"
                         sh "git commit -am 'Updated version number'"
-                        sh "git remote set-url origin https://github.com/byassine/simplephp"
-                        sh "git push -u origin main"
+                        sh "git branch second"
+                        sh "git remote set-url origin2 https://github.com/byassine/simplephp"
+                        sh "git push -u origin2 second"
                  }
             }
         }
