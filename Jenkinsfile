@@ -17,7 +17,6 @@ pipeline {
                         sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
                         sh "git config user.email bouderaa.yassine@gmail.com"
                         sh "git config user.name byassine"
-                        sh "git remote add -f -t main -m main origin git://github.com/byassine/simplephp.git/"
                         sh "git branch -M main"
                         sh "git status"
                         sh "git add deployementtest.yaml"
