@@ -23,7 +23,6 @@ pipeline {
                         sh "git add deployementtest.yaml"
                         sh "git commit -m 'Updated version number'"
                         sh "git remote -v"
-                        sh "git remote add origin https://github.com/byassine/manifesttest.git"
                         sh "git push -f --set-upstream origin main"
                          }
 
