@@ -33,8 +33,6 @@ pipeline {
                 script{
                     withDockerRegistry([ credentialsId: "newdockerhub-pwd", url: "https://index.docker.io/v1/" ]) {
                         sh "docker push yassinebd/testphp:v1.0.5"
-                        sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
-                        sh "sed -i 's/v1.0.4/v1.0.5/g' Jenkinsfile"
                         }
                         
                 }
@@ -42,9 +40,13 @@ pipeline {
         }
      stage('comit change manifest') {
             steps {
-                git checkout main
-                git commit -am "Updated version number"  
-                git push
+                 script{
+                        sh "sed -i 's/v1.0.4/v1.0.5/g' deployementtest.yaml"
+                        sh "sed -i 's/v1.0.4/v1.0.5/g' Jenkinsfile"
+                        sh "git checkout main"
+                        sh "git commit -am 'Updated version number'"
+                        sh "git push"
+                 }
             }
         }
         stage('deploy to k8s')
