@@ -43,7 +43,7 @@ pipeline {
             steps {
                  script{
                         sh "git remote set-url origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/simplephp.git"
-                        sh "sed -i 's/v1.0.9/v1.0.6/g' deployementtest.yaml"
+                        sh "sed -i 's/v1.0.6/v1.0.5/g' deployementtest.yaml"
                         sh "git config --global user.email bouderaa.yassine@gmail.com"
                         sh "git config --global user.name byassine"
                         sh "git config --global http.proxy http://10.97.243.181:808" 
@@ -54,7 +54,7 @@ pipeline {
                       
                         sh "git remote rm origin"
                         sh "git remote add origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/manifesttest.git"
-                        
+                        sh "git add ."
                         sh "git commit -m 'update'"
                         sh "git push -f --set-upstream origin main"  
 
