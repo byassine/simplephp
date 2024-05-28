@@ -3,6 +3,7 @@ pipeline {
 
      environment{
         GITLAB_CRED = credentials('gitlab-credentiel')
+        GITHUB_CRED = credentials('secgit')
     }
 
     stages {
