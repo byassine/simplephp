@@ -48,7 +48,7 @@ pipeline {
                         sh "git remote add origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/manifesttest.git"
                         sh "git add ."
                         sh "git commit -m 'update'"
-                        sh "git push -f --set-upstream origin main"  
+                        sh "git push -f --set-upstream origin main --force"  
 
                  }
             }
