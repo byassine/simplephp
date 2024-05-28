@@ -26,7 +26,7 @@ pipeline {
                     sh 'ls -altr'
                     
                     
-                    sh 'git config --global user.name "yassine"'
+                    sh 'git config --global user.name "byassine"'
                     sh 'git config --global user.email "bouderaa.yassine@gmail.com"'
                     sh "git config --global http.proxy http://10.97.243.181:808" 
                     sh "git config --global https.proxy http://10.97.243.181:808"
