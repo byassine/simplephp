@@ -39,7 +39,7 @@ pipeline {
                         sh "git remote rm origin"
                         sh 'rm -rf .git'
                         sh 'git init -b main'
-                        sh 'git remote add origin https://${GITLAB_CRED_USR}:${GITLAB_CRED_PSW}@srvpoc.lydec.wnet/yassine/test2.git'
+                        sh "git remote add origin https://${GITHUB_CRED_USR}:${GITHUB_CRED_PSW}@github.com/byassine/manifesttest.git"
                         sh 'git add .'
 
 
