@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nv-application
-        image: yassinebd/testphp:v1.0.7
+        image: yassinebd/testphp:v1.0.5
         ports:
         - containerPort: 80
         imagePullPolicy: Always
