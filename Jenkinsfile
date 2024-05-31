@@ -1,26 +1,46 @@
 pipeline {
-    agent any
-
+    agent none
      environment{
-
-        GITHUB_CRED = credentials('gitlab-credentiel')
+        GITHUB_CRED = credentials('github-credentiel')
     }
-
     stages {
         stage('préparation') {
+            agent { label 'docker'}
             steps {
                 git branch: 'main', changelog: false, poll: false, url: 'https://github.com/byassine/simplephp.git'
             }
         }
-        stage('build image'){
+        stage('build image') {
+            agent { label 'docker'}
+            steps {
+                script{
+                    sh 'ls -altr'
+                    sh 'docker build -t yassinebd/testphp:v1.1.6 .'
+                }
+            }
+        }
+        stage('change manifest') {
+            agent { label 'docker'}
+            steps {
+                script{
+                    sh "sed -i 's/v1.0.5/v1.1.6/g' deployementtest.yaml"
+                }
+            }
+        }
+        stage('push to hub')
+        {
+            agent { label 'docker'}
             steps{
                 script{
-                    sh 'docker pull docker.io/library/php:7.0-apache'
-                    sh 'docker build -t yassinebd/testphp:v1.0.8 .'
+                    withDockerRegistry([ credentialsId: "dockerhub_cred", url: "https://index.docker.io/v1/" ]) {
+                        sh "docker push yassinebd/testphp:v1.1.6"
+                        }
+                        
                 }
             }
         }
         stage('push to gitlab'){
+            agent { label 'docker'}
             steps{
                 script{
                     sh 'ls -altr'
@@ -32,8 +52,8 @@ pipeline {
                     sh "git config --global https.proxy http://10.97.243.181:808"
 
 
-                    sh 'mkdir -p manifest/manifest'
-                    sh 'cp deployementtest.yaml manifest/manifest/deployementtest.yaml'
+                    sh 'mkdir -p manifest'
+                    sh 'cp deployementtest.yaml manifest/deployment.yaml'
 
                     dir('manifest') {
                        
@@ -54,5 +74,21 @@ pipeline {
                 }
             }
         }
+        stage('deploy to k8s')
+        {
+            agent { label 'k8s_cli'}
+            steps{
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/byassine/manifesttest.git'
+                script{
+                    kubeconfig(credentialsId: 'k8s-kube', serverUrl: '') {
+                            sh 'kubectl create ns jenkins || echo "namespace already exists"'
+                            sh 'kubectl apply -f manifest/deployment.yaml'
+                        }
+                                                
+                }
+            }
+        }
+        
+        
     }
 }
