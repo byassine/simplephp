@@ -3,6 +3,7 @@ pipeline {
      environment{
         GITHUB_CRED = credentials('github-credentiel')
     }
+    stages {
         stage('build image') {
             agent { label 'docker'}
             steps {
