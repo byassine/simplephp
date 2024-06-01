@@ -25,6 +25,7 @@ pipeline {
                 script{
                     sh 'ls -altr'
                     sh 'sed -i "s/v1.0.5/v1.1.7/g" deployementtest.yaml'
+                    sh 'cat deployementtest.yaml'
                     sh 'ls -altr'
                 }
             }
