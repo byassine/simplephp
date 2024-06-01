@@ -8,8 +8,6 @@ pipeline {
             agent { label 'docker'}
             steps {
                 script{
-                    def scmVars = checkout scm
-                    stash name: 'source', includes: '**/*'
                 }
             }
         }
@@ -26,11 +24,11 @@ pipeline {
             agent { label 'docker'}
             steps {
                 script{
-                    unstash 'source'
+                    def scmVars = checkout scm
                     sh 'ls -altr'
                     sh 'sed -i "s/v1.0.5/v1.1.7/g" deployementtest.yaml'
                     sh 'cat deployementtest.yaml'
-                    sh 'ls -altr'
+                    stash name: 'source', includes: '**/*'
                 }
             }
         }
