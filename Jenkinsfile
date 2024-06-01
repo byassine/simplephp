@@ -57,7 +57,7 @@ pipeline {
 
                     sh 'mkdir -p manifest/manifest'
                     sh 'cp deployementtest.yaml manifest/manifest/deployment.yaml'
-
+                    sh 'cat deployementtest.yaml'
                     dir('manifest') {
                        
                         sh 'ls -altr'
