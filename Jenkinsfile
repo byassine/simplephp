@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script{
                     sh 'ls -altr'
-                    sh 'docker build -t yassinebd/testphp:v1.1.7 .'
+                    sh 'docker build -t yassinebd/testphp:v1.1.8 .'
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
                 script{
                     def scmVars = checkout scm
                     sh 'ls -altr'
-                    sh 'sed -i "s/v1.0.5/v1.1.7/g" deployementtest.yaml'
+                    sh 'sed -i "s/v1.0.5/v1.1.8/g" deployementtest.yaml'
                     sh 'cat deployementtest.yaml'
                     stash name: 'source', includes: '**/*'
                 }
@@ -32,7 +32,7 @@ pipeline {
                 script{
                     unstash 'source'
                     withDockerRegistry([ credentialsId: "dockerhub_cred", url: "https://index.docker.io/v1/" ]) {
-                        sh "docker push yassinebd/testphp:v1.1.7"
+                        sh "docker push yassinebd/testphp:v1.1.8"
                         }
                         
                 }
