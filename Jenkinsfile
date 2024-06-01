@@ -8,6 +8,10 @@ pipeline {
             agent { label 'docker'}
             steps {
                 git branch: 'main', changelog: false, poll: false, url: 'https://github.com/byassine/simplephp.git'
+                script{
+                    def scmVars = checkout scm
+                    stash name: 'source', includes: '**/*'
+                }
             }
         }
         stage('build image') {
@@ -23,6 +27,7 @@ pipeline {
             agent { label 'docker'}
             steps {
                 script{
+                    unstash 'source'
                     sh 'ls -altr'
                     sh 'sed -i "s/v1.0.5/v1.1.7/g" deployementtest.yaml'
                     sh 'cat deployementtest.yaml'
@@ -35,6 +40,7 @@ pipeline {
             agent { label 'docker'}
             steps{
                 script{
+                    unstash 'source'
                     withDockerRegistry([ credentialsId: "dockerhub_cred", url: "https://index.docker.io/v1/" ]) {
                         sh "docker push yassinebd/testphp:v1.1.7"
                         }
@@ -46,6 +52,7 @@ pipeline {
             agent { label 'docker'}
             steps{
                 script{
+                    unstash 'source'
                     sh 'ls -altr'
                     
                     
