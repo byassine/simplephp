@@ -52,8 +52,8 @@ pipeline {
                     sh "git config --global https.proxy http://10.97.243.181:808"
 
 
-                    sh 'mkdir -p manifest'
-                    sh 'cp deployementtest.yaml manifest/deployment.yaml'
+                    sh 'mkdir -p manifest/manifest'
+                    sh 'cp deployementtest.yaml manifest/manifest/deployment.yaml'
 
                     dir('manifest') {
                        
