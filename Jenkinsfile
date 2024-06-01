@@ -7,7 +7,6 @@ pipeline {
         stage('préparation') {
             agent { label 'docker'}
             steps {
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/byassine/simplephp.git'
                 script{
                     def scmVars = checkout scm
                     stash name: 'source', includes: '**/*'
