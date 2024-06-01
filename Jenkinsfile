@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script{
                     sh 'ls -altr'
-                    sh 'docker build -t yassinebd/testphp:v1.1.6 .'
+                    sh 'docker build -t yassinebd/testphp:v1.1.7 .'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             agent { label 'docker'}
             steps {
                 script{
-                    sh "sed -i 's/v1.0.5/v1.1.6/g' deployementtest.yaml"
+                    sh "sed -i 's/v1.0.5/v1.1.7/g' deployementtest.yaml"
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
             steps{
                 script{
                     withDockerRegistry([ credentialsId: "dockerhub_cred", url: "https://index.docker.io/v1/" ]) {
-                        sh "docker push yassinebd/testphp:v1.1.6"
+                        sh "docker push yassinebd/testphp:v1.1.7"
                         }
                         
                 }
