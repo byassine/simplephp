@@ -23,11 +23,12 @@ pipeline {
             agent { label 'docker'}
             steps {
                 script{
+                    sh 'ls -altr'
                     sh "sed -i 's/v1.0.5/v1.1.7/g' deployementtest.yaml"
                 }
             }
         }
-        stage('push to hub')
+        stage('push to Dockerhub')
         {
             agent { label 'docker'}
             steps{
@@ -39,7 +40,7 @@ pipeline {
                 }
             }
         }
-        stage('push to gitlab'){
+        stage('push to github'){
             agent { label 'docker'}
             steps{
                 script{
