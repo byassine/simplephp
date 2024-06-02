@@ -1,3 +1,4 @@
+push to github ou gitlab a besoin de desactiver la protection du branche
 
 In jenkins file
         1 / for using multi nodes with tags we use agent {label 'tag'} and for global pipeline agent none
@@ -8,6 +9,8 @@ In jenkins file
 pour utiliser stash ou {label :'xxx'} il faut utiliser pipeline avec SCM acceder au code Jenkins apartir du repo
 
 le code source doit etre avec le jenkins file
+
+
 
 Pour changer le port du Jenkins
 
