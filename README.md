@@ -3,5 +3,12 @@ In jenkins file
         2/ remarque :
                 chaque execution de stage jenkins refait le pull ce qui fait le changement si c'est fait par le pipeline va etre ecraser,
                 ce qui fait on utilise le checkout avec stash.
+
+
+Pour changer le port du Jenkins
+
+sudo vi /lib/systemd/system/jenkins.service
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
                 
         
